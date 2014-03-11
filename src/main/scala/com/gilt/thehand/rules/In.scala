@@ -20,6 +20,7 @@ trait In[U] extends SeqRule {
    * as defined by 'toRuleType'.
    */
   def unapply(context: AbstractContext): Option[AbstractContext] = context match {
+    case Context(c: Char) => unapply(Context(c.toString)) // Necessary because Char implicitly converts to many other types, causing confusion.
     case c: Context[InnerType] if values.contains(c.instance) => Some(context)
     case c: Context[_] if toRuleType.isDefinedAt(c.instance) && values.contains(toRuleType(c.instance)) => Some(context)
     case _ => None
