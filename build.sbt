@@ -25,7 +25,7 @@ publishTo <<= version { (v: String) =>
     Some("releases"  at nexus + "/service/local/staging/deploy/maven2")
 }
 
-publishArtifact in Test := false
+publishArtifact in Test := true
 
 pomIncludeRepository := { _ => false }
 
