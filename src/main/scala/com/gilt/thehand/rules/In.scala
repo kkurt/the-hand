@@ -1,28 +1,16 @@
 package com.gilt.thehand.rules
 
-import com.gilt.thehand.{AbstractContext, Context}
+import com.gilt.thehand.rules.conversions.ConvertsTo
+
 /**
  * A general interface that can be used to implement an In rule for any datatype. In practice, this is used mostly
  * for parsing, to differentiate, say, In[String] from In[Long].
  */
-trait In[U] extends SeqRule {
-  type InnerType = U
-
+trait In extends SeqRule { self: ConvertsTo =>
   /**
-   * Implement/override this if you want to accept 'similar' types that do not match InnerType. For example, Long and
-   * Int are often interchangeable, so this method can be overridden to translate Int to Long (see @LongIn for an
-   * example).
+   * The rule matches if the value is in the list of values.
+   * @param value The value to match against.
+   * @return
    */
-  def toRuleType: PartialFunction[Any, InnerType] = PartialFunction.empty
-
-  /**
-   * Attempts to match the context, first looking to strictly match InnerType. It then attempts to match 'similar' types
-   * as defined by 'toRuleType'.
-   */
-  def unapply(context: AbstractContext): Option[AbstractContext] = context match {
-    case Context(c: Char) => unapply(Context(c.toString)) // Necessary because Char implicitly converts to many other types, causing confusion.
-    case c: Context[InnerType] if values.contains(c.instance) => Some(context)
-    case c: Context[_] if toRuleType.isDefinedAt(c.instance) && values.contains(toRuleType(c.instance)) => Some(context)
-    case _ => None
-  }
+  def matchInnerType(value: InnerType) = values.contains(value)
 }

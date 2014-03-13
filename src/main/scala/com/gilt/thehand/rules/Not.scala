@@ -21,9 +21,9 @@ case class Not(rule: Rule) extends Rule {
  */
 object NotParser extends AbstractRuleParser {
   def toValue(value: String)(implicit parser: RuleParser): Rule = parser.fromString(value)
-  def unapply(fromStr: String): Option[Rule] = {
+  def unapply(deserializeFrom: String): Option[Rule] = {
     val matchRegEx = "Not\\((.+)\\)".r
-    fromStr match {
+    deserializeFrom match {
       case matchRegEx(valuesStr) => Some(Not(toValue(valuesStr)))
       case _ => None
     }

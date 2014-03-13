@@ -6,7 +6,7 @@ import com.gilt.thehand.{AbstractRuleParser, Rule, RuleParser, Util}
  * Implement this trait for any rule that takes a list of inputs of the same type. Examples: And, Or, In.
  */
 trait SeqRule extends Rule {
-  type InnerType // Implementers will need to set this type, see In[T] for an example.
+  type InnerType // Implementers will need to set this type.
 
   /**
    * The list of 'InnerType' values that apply to this rule.
@@ -38,9 +38,9 @@ abstract class SeqRuleParser[T <: SeqRule : Manifest] extends AbstractRuleParser
    */
   def ruleConstructor: Seq[T#InnerType] => Rule
 
-  def unapply(fromStr: String): Option[Rule] = {
+  def unapply(deserializeFrom: String): Option[Rule] = {
     val matchRegEx = s"${manifest.runtimeClass.getSimpleName}\\((.+)\\)".r
-    fromStr match {
+    deserializeFrom match {
       case matchRegEx(valuesStr) => Some(ruleConstructor(Util.nestedSplit(valuesStr, ',').map(s => toValue(s.trim) )))
       case _ => None
     }

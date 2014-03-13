@@ -32,7 +32,7 @@ trait AbstractRuleParser {
  * @param ruleParsers: A list of parsing objects that will be used to parse strings.
  */
 case class RuleParser(ruleParsers: AbstractRuleParser*) extends AbstractRuleParser {
-  val defaultParsers = Seq(True, False, NotParser, AndParser, OrParser, StringInParser, LongInParser)
+  val defaultParsers = Seq(True, False, NotParser, AndParser, OrParser, StringEqParser, StringInParser, LongEqParser, LongInParser)
 
   def unapply(deserializeFrom: String): Option[Rule] = (ruleParsers ++ defaultParsers).foldLeft(Option.empty[Rule])((result, currentParser) =>
     result orElse currentParser.unapply(deserializeFrom)
