@@ -1,6 +1,7 @@
-package com.gilt.thehand.rules
+package com.gilt.thehand.rules.comparison
 
 import com.gilt.thehand.rules.conversions.ConvertsTo
+import com.gilt.thehand.rules.SingleValueRule
 
 /**
  * A rule that tests equality.

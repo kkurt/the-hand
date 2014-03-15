@@ -1,6 +1,8 @@
-package com.gilt.thehand.rules
+package com.gilt.thehand.rules.typed
 
 import com.gilt.thehand.rules.conversions.ConvertsToLong
+import com.gilt.thehand.rules.comparison.Eq
+import com.gilt.thehand.rules.SingleValueRuleParser
 
 /**
  * A typed implementation of the Eq trait, specific to Long. This can be used for any non-decimal datatype.

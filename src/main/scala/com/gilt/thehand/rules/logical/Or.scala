@@ -1,6 +1,7 @@
-package com.gilt.thehand.rules
+package com.gilt.thehand.rules.logical
 
 import com.gilt.thehand.{AbstractContext, Rule, RuleParser}
+import com.gilt.thehand.rules.{SeqRule, SeqRuleParser}
 
 /**
  * Pass any number of rules into this Or class to boolean-or their results together. This will short-circuit

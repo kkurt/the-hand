@@ -1,6 +1,8 @@
 package com.gilt.thehand
 
 import com.gilt.thehand.rules._
+import com.gilt.thehand.rules.logical.{Or, Not, And}
+import com.gilt.thehand.rules.typed.{StringIn, LongIn}
 
 /**
  * A place to drop general tests that cross class lines.

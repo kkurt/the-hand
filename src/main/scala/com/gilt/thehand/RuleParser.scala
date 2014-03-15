@@ -2,6 +2,9 @@ package com.gilt.thehand
 
 import com.gilt.thehand.exceptions.CannotDeserializeException
 import com.gilt.thehand.rules._
+import com.gilt.thehand.rules.logical._
+import com.gilt.thehand.exceptions.CannotDeserializeException
+import com.gilt.thehand.rules.typed.{StringInParser, StringEqParser, LongInParser, LongEqParser}
 
 /**
  * Implement this trait when defining a new RuleParser. The parser should take the serialized string version of the

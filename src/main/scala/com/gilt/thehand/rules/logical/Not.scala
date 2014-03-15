@@ -1,7 +1,6 @@
-package com.gilt.thehand.rules
+package com.gilt.thehand.rules.logical
 
 import com.gilt.thehand.{AbstractContext, AbstractRuleParser, Rule, RuleParser}
-import scala.Some
 
 /**
  * Flips the rule evaluation of the nested rule from false to true or vice versa.

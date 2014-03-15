@@ -1,6 +1,7 @@
-package com.gilt.thehand.rules
+package com.gilt.thehand.rules.comparison
 
 import com.gilt.thehand.rules.conversions.ConvertsTo
+import com.gilt.thehand.rules.SeqRule
 
 /**
  * A general interface that can be used to implement an In rule for any datatype. In practice, this is used mostly

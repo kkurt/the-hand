@@ -1,4 +1,4 @@
-package com.gilt.thehand.rules
+package com.gilt.thehand.rules.logical
 
 import com.gilt.thehand.{AbstractContext, AbstractRuleParser, Rule}
 
