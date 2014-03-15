@@ -9,9 +9,9 @@ import com.gilt.thehand.RuleParser
 case class StringEq(value: String) extends Eq with ConvertsToString
 
 /**
- * Use this to differentiate In[Long] from other versions of In.
+ * Use this to differentiate Eq[String] from other versions of Eq.
  */
-object StringEqParser extends EqParser[StringEq] {
+object StringEqParser extends SingleValueRuleParser[StringEq] {
+  def ruleConstructor(value: String) = StringEq(value)
   def toValue(value: String)(implicit parser: RuleParser) = value
-  def ruleConstructor = StringEq.apply
 }

@@ -20,6 +20,4 @@ case class And(values: Rule*) extends SeqRule {
  */
 object AndParser extends SeqRuleParser[And] {
   def toValue(value: String)(implicit parser: RuleParser): Rule = parser.fromString(value)
-
-  def ruleConstructor = And.apply
 }

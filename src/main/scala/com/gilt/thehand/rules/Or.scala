@@ -19,7 +19,5 @@ case class Or(values: Rule*) extends SeqRule {
  */
 object OrParser extends SeqRuleParser[Or] {
   def toValue(value: String)(implicit parser: RuleParser): Rule = parser.fromString(value)
-
-  def ruleConstructor = Or.apply
 }
 

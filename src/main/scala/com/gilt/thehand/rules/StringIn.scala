@@ -13,5 +13,4 @@ case class StringIn(values: String*) extends In with ConvertsToString
  */
 object StringInParser extends SeqRuleParser[StringIn] {
   def toValue(value: String)(implicit parser: RuleParser) = value
-  def ruleConstructor = StringIn.apply
 }

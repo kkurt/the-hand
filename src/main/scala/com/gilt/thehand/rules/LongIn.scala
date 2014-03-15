@@ -13,5 +13,5 @@ case class LongIn(values: Long*) extends In with ConvertsToLong
  */
 object LongInParser extends SeqRuleParser[LongIn] {
   def toValue(value: String)(implicit parser: RuleParser) = value.toLong
-  def ruleConstructor = LongIn.apply
 }
+
