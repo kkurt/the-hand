@@ -1,7 +1,6 @@
-package com.gilt.thehand.rules
+package com.gilt.thehand.rules.logical
 
 import com.gilt.thehand.{Context, RuleSpec}
-import com.gilt.thehand.rules.logical.{True, Or, False}
 
 /**
  * In these tests, any context could have been used; using Boolean here to prove that true/false doesn't matter in the
