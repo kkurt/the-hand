@@ -1,6 +1,6 @@
 package com.gilt.thehand.rules
 
-import com.gilt.thehand.{AbstractRuleParser, Rule, RuleParser, Util}
+import com.gilt.thehand.{AbstractRuleParser, Rule, Util}
 
 /**
  * Implement this trait for any rule that takes a list of inputs of the same type. Examples: And, Or, In.
@@ -27,10 +27,9 @@ abstract class SeqRuleParser[T <: SeqRule : Manifest] extends AbstractRuleParser
    * need to implicitly define a parser in scope; if using default rules, simply import @DefaultParser
    *
    * @param value The string representation of the sub-type of SeqRule.
-   * @param parser An implicitly-defined parser that can be used recursively to parse strings into values.
    * @return The parsed value of the sub-type.
    */
-  def toValue(value: String)(implicit parser: RuleParser): T#InnerType
+  def toValue(value: String): T#InnerType
 
   /**
    * A constructor for the SeqRule that takes a list of typed values. Override this if your class constructor does not

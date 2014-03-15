@@ -18,6 +18,6 @@ case class Or(values: Rule*) extends SeqRule {
  * Parses a String to an Or rule, recursively parsing for each member of the rule.
  */
 object OrParser extends SeqRuleParser[Or] {
-  def toValue(value: String)(implicit parser: RuleParser): Rule = parser.fromString(value)
+  def toValue(value: String): Rule = implicitly[RuleParser].fromString(value)
 }
 

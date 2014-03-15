@@ -20,7 +20,7 @@ case class Not(rule: Rule) extends Rule {
  * Parses a String to a Not rule, recursively parsing the inner member into a rule.
  */
 object NotParser extends AbstractRuleParser {
-  def toValue(value: String)(implicit parser: RuleParser): Rule = parser.fromString(value)
+  def toValue(value: String): Rule = implicitly[RuleParser].fromString(value)
   def unapply(deserializeFrom: String): Option[Rule] = {
     val matchRegEx = "Not\\((.+)\\)".r
     deserializeFrom match {

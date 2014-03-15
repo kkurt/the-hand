@@ -1,7 +1,7 @@
 package com.gilt.thehand.rules
 
 import com.gilt.thehand.rules.conversions.ConvertsTo
-import com.gilt.thehand.{Rule, RuleParser, AbstractRuleParser}
+import com.gilt.thehand.{Rule, AbstractRuleParser}
 
 /**
  * A type of rule that takes a single value and tests against it.
@@ -35,10 +35,9 @@ abstract class SingleValueRuleParser[T <: SingleValueRule : Manifest] extends Ab
    * need to implicitly define a parser in scope; if using default rules, simply import @DefaultParser
    *
    * @param value The string representation of the sub-type of Eq.
-   * @param parser An implicitly-defined parser that can be used recursively to parse strings into values.
    * @return The parsed value of the sub-type.
    */
-  def toValue(value: String)(implicit parser: RuleParser): T#InnerType
+  def toValue(value: String): T#InnerType
 
   /**
    * A constructor for the SeqRule that takes a typed value. Override this if your class constructor does not simply
