@@ -10,6 +10,7 @@ trait ConvertsToLong extends ConvertsTo {
    * Accept other 'Long'-like types when applicable.
    */
   override def toRuleType = {
+    case l: Long => l
     case bd: BigDecimal if bd.isValidLong => bd.toLong
     case b: Boolean => if (b) 1L else 0L
     case b: Byte => b.toLong
@@ -18,6 +19,7 @@ trait ConvertsToLong extends ConvertsTo {
     case i: Int => i.toLong
     case s: Short => s.toLong
     case s: String if s.matches("^\\d+$") => s.toLong
+    case s: String if s.matches("^\\d+\\.0+$") => s.split("\\.").head.toLong
   }
 
 }

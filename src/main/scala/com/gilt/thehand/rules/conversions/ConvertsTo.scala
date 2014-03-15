@@ -13,9 +13,9 @@ trait ConvertsTo extends Rule {
   /**
    * Implement/override this if you want to accept 'similar' types that do not match InnerType. For example, Long and
    * Int are often interchangeable, so this method can be overridden to translate Int to Long (see @LongIn for an
-   * example).
+   * example). Due to type erasure, you will need to include the real InnerType in the listing.
    */
-  def toRuleType: PartialFunction[Any, InnerType] = PartialFunction.empty
+  def toRuleType: PartialFunction[Any, InnerType]
 
   /**
    * Implement this in order to determine whether a given value matches the current rule.
@@ -31,7 +31,6 @@ trait ConvertsTo extends Rule {
    */
   def unapply(context: AbstractContext): Option[AbstractContext] = context match {
     case Context(c: Char) => unapply(Context(c.toString)) // Necessary because Char implicitly converts to many other types, causing confusion.
-    case c: Context[InnerType] if matchInnerType(c.instance) => Some(context)
     case Context(value) if toRuleType.isDefinedAt(value) && matchInnerType(toRuleType(value)) => Some(context)
     case _ => None
   }

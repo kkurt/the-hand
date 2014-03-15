@@ -1,10 +1,8 @@
 package com.gilt.thehand
 
-import com.gilt.thehand.exceptions.CannotDeserializeException
-import com.gilt.thehand.rules._
 import com.gilt.thehand.rules.logical._
+import com.gilt.thehand.rules.typed._
 import com.gilt.thehand.exceptions.CannotDeserializeException
-import com.gilt.thehand.rules.typed.{StringInParser, StringEqParser, LongInParser, LongEqParser}
 
 /**
  * Implement this trait when defining a new RuleParser. The parser should take the serialized string version of the
@@ -35,7 +33,11 @@ trait AbstractRuleParser {
  * @param ruleParsers: A list of parsing objects that will be used to parse strings.
  */
 case class RuleParser(ruleParsers: AbstractRuleParser*) extends AbstractRuleParser {
-  val defaultParsers = Seq(True, False, NotParser, AndParser, OrParser, StringEqParser, StringInParser, LongEqParser, LongInParser)
+  val defaultParsers = Seq(
+    True, False, NotParser, AndParser, OrParser,
+    StringEqParser, StringInParser, StringLtParser, StringGtParser, StringLteParser, StringGteParser,
+    LongEqParser, LongInParser, LongLtParser, LongGtParser, LongLteParser, LongGteParser
+  )
 
   def unapply(deserializeFrom: String): Option[Rule] = (ruleParsers ++ defaultParsers).foldLeft(Option.empty[Rule])((result, currentParser) =>
     result orElse currentParser.unapply(deserializeFrom)
