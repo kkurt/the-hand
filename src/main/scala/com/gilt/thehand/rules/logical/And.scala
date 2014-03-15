@@ -19,6 +19,6 @@ case class And(values: Rule*) extends SeqRule {
 /**
  * Parses a String to an And rule, recursively parsing for each member of the rule.
  */
-object AndParser extends SeqRuleParser[And] {
-  def toValue(value: String): Rule = implicitly[RuleParser].fromString(value)
+case class AndParser(parser: RuleParser) extends SeqRuleParser[And] {
+  def toValue(value: String): Rule = parser.fromString(value)
 }

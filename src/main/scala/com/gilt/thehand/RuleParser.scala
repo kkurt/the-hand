@@ -33,8 +33,8 @@ trait AbstractRuleParser {
  * @param ruleParsers: A list of parsing objects that will be used to parse strings.
  */
 case class RuleParser(ruleParsers: AbstractRuleParser*) extends AbstractRuleParser {
-  val defaultParsers = Seq(
-    True, False, NotParser, AndParser, OrParser,
+  lazy val defaultParsers = Seq(
+    True, False, NotParser(this), AndParser(this), OrParser(this),
     StringEqParser, StringInParser, StringLtParser, StringGtParser, StringLteParser, StringGteParser,
     LongEqParser, LongInParser, LongLtParser, LongGtParser, LongLteParser, LongGteParser
   )

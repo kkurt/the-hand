@@ -13,7 +13,7 @@ trait SeqRule extends Rule {
    */
   def values: Seq[InnerType]
 
-  override def toString = this.getClass.getSimpleName + "(" + values.map(_.toString).mkString(",") + ")"
+  override def toString = this.getClass.getSimpleName + "(" + values.map(_.toString).mkString(", ") + ")"
 }
 
 /**
