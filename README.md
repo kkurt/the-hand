@@ -486,6 +486,7 @@ To publish, set up your environment based on the "Contributors" section below, t
     2. `git add version.sbt`
     3. `git commit -m "Moving to version {x.x.x}-SNAPSHOT"`
     5. `git push origin master`
+5. Promote the release by following these steps: https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-8a.ReleaseIt
 
 Note: The versioning above may eliminated at some point if we add this in: https://github.com/sbt/sbt-release/issues/49
 
@@ -507,3 +508,8 @@ following (more in-depth instructions at http://www.scala-sbt.org/release/docs/C
                                    "oss.sonatype.org",
                                    "your-sonatype-username",
                                    "your-sonatype-password")
+
+4. Make sure your public key is pushed to the remote keyserver:
+    1. `gpg --list-public-keys`
+    2. Find the hash for the one you just created.
+    3. `gpg --keyserver hkp://keyserver.ubuntu.com --send-keys {your-hash-here}`
