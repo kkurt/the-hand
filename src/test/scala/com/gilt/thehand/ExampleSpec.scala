@@ -38,7 +38,7 @@ class ExampleSpec extends RuleSpec {
       case Celsius => degrees compare that.inC
     }
 
-    override def toString = s"Temperature($degrees, $degreeType)"
+    override def toString = "Temperature(%s, %s)".format(degrees, degreeType)
   }
 
   // A class to represent the current weather.
@@ -57,7 +57,7 @@ class ExampleSpec extends RuleSpec {
       case `wearRainJacket`(context) => Some(JacketType.Rain)
       case `wearLightJacket`(context) => Some(Light)
       case `wearNoJacket`(context) => None
-      case _ => throw new RuntimeException(s"I don't have a rule for this weather! ${context.instance}")
+      case _ => throw new RuntimeException("I don't have a rule for this weather! %s".format(context.instance))
     }
   }
 
@@ -83,7 +83,7 @@ class ExampleSpec extends RuleSpec {
      * 2b. Your rule should be specific how it is represented as a string. This will be used later when parsing the
      *     string back into the Rule.
      */
-    override def toString = s"TemperatureLte($value)"
+    override def toString = "TemperatureLte(%s)".format(value)
   }
 
   /**
@@ -248,7 +248,7 @@ class ExampleSpec extends RuleSpec {
   "Parsing Rules" should "work round-trip with the extractor" in {
     val rule = alice.wearWinterJacket.toString match {
       case parser(rule) => rule
-      case _ => throw new CannotDeserializeException(s"Failed deserializing [${alice.wearWinterJacket.toString}}]")
+      case _ => throw new CannotDeserializeException("Failed deserializing [%s]".format(alice.wearWinterJacket.toString))
     }
     rule should be (alice.wearWinterJacket)
   }
@@ -260,7 +260,7 @@ class ExampleSpec extends RuleSpec {
   it should "work for a raw string with extractor" in {
     val rule = "And(TemperatureLte(Temperature(35, Celsius)), Not(WeatherTypeIn(Sun, Clouds)))" match {
       case parser(rule) => rule
-      case _ => throw new CannotDeserializeException(s"Failed deserializing [${alice.wearWinterJacket.toString}}]")
+      case _ => throw new CannotDeserializeException("Failed deserializing [%s]".format(alice.wearWinterJacket.toString))
     }
     rule should be (And(TemperatureLte(Temperature(35, Celsius)), Not(WeatherTypeIn(Sun, Clouds))))
   }

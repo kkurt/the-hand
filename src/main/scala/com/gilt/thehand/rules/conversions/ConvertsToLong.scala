@@ -11,11 +11,11 @@ trait ConvertsToLong extends ConvertsTo {
    */
   override def toRuleType = {
     case l: Long => l
-    case bd: BigDecimal if bd.isValidLong => bd.toLong
+    case bd: BigDecimal if bd.toLong == bd => bd.toLong
     case b: Boolean => if (b) 1L else 0L
     case b: Byte => b.toLong
     case c: Char if c.isDigit => c.toString.toLong // toString is necessary, otherwise it will be the ascii char num.
-    case d: Double if d.isValidInt => d.toLong // No isValidLong on Double; this may cause some confusion, but keep it for now.
+    case d: Double if d.toLong == d => d.toLong
     case i: Int => i.toLong
     case s: Short => s.toLong
     case s: String if s.matches("^\\d+$") => s.toLong

@@ -1,6 +1,7 @@
 package com.gilt.thehand
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.FlatSpec
+import org.scalatest.matchers.ShouldMatchers
 import com.gilt.thehand.exceptions.CannotDeserializeException
 
 /**
@@ -9,7 +10,7 @@ import com.gilt.thehand.exceptions.CannotDeserializeException
  * contexts that should match the rule, the second a list of contexts that should not match the rule. See @LongInSpec
  * for an example.
  */
-trait RuleSpec extends FlatSpec with Matchers {
+trait RuleSpec extends FlatSpec with ShouldMatchers {
   lazy val parser: AbstractRuleParser = DefaultParser
 
   /**
@@ -36,12 +37,12 @@ trait RuleSpec extends FlatSpec with Matchers {
         val serializedRule = rule.toString
         serializedRule match {
           case parser(deserializedRule) => deserializedRule should be (rule)
-          case _ => throw new CannotDeserializeException(s"Could not deserialize [$serializedRule]")
+          case _ => throw new CannotDeserializeException("Could not deserialize [%s]".format(serializedRule))
         }
       }
 
       matchingContexts foreach { context =>
-        it should s"match $context" in {
+        it should "match %s".format(context) in {
           // Match using 'matches'
           assert(rule.matches(context))
           // Match using the extractor
@@ -53,7 +54,7 @@ trait RuleSpec extends FlatSpec with Matchers {
       }
 
       nonMatchingContexts foreach { context =>
-        it should s"not match $context" in {
+        it should "not match %s".format(context) in {
           // Attempt match using 'matches'
           assert(!rule.matches(context))
           // Attempt match using the extractor

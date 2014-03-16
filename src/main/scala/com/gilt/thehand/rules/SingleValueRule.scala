@@ -46,10 +46,10 @@ abstract class SingleValueRuleParser[T <: SingleValueRule : Manifest] extends Ab
    * I can't get the default to work, even after some effort - so giving up for now. I think some sort of type erasure
    * allows this to work for Seq[T#InnerType] (in SeqRuleParser), whereas the non-erased type here does not work.
    */
-  def ruleConstructor(value: T#InnerType): Rule //= manifest.runtimeClass.getConstructor(classOf[Any]).newInstance(value).asInstanceOf[Rule]
+  def ruleConstructor(value: T#InnerType): Rule //= manifest.erasure.getConstructor(classOf[Any]).newInstance(value).asInstanceOf[Rule]
 
   def unapply(deserializeFrom: String): Option[Rule] = {
-    val matchRegEx = s"${manifest.runtimeClass.getSimpleName}\\((.+)\\)".r
+    val matchRegEx = "^%s\\((.+)\\)$".format(manifest.erasure.getSimpleName).r
     deserializeFrom match {
       case matchRegEx(valueStr) => Some(ruleConstructor(toValue(valueStr.trim)))
       case _ => None

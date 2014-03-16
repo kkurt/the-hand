@@ -1,8 +1,9 @@
 package com.gilt.thehand
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.FlatSpec
+import org.scalatest.matchers.ShouldMatchers
 
-class UtilSpec extends FlatSpec with Matchers {
+class UtilSpec extends FlatSpec with ShouldMatchers {
 
   "Util.nestedSplit" should "work for a simple split" in {
     Util.nestedSplit("1,2,3,4") should be (Seq("1", "2", "3", "4"))
