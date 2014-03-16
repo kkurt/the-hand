@@ -23,7 +23,7 @@ This library excels when you have a use for customizable rules that fall outside
 specifically if those rules need to be stored as strings (i.e. in a database or a config file). Furthermore, for
 developing highly-specific and greatly-varying logical cases, this library is much easier to expand than a collection
 of if-then/match/etc statements. But, really, the best explanation of its usefulness is to look at the example in
-"Getting Started" below.
+"Getting Started" below. Also check out a full example in the [ExampleSpec](../../blob/master/src/test/scala/com/gilt/thehand/ExampleSpec.scala).
 
 
 ## Getting Started
@@ -36,6 +36,7 @@ Let's look at a rule system built around these two example classes:
       type Currency = Value
       val CAD, CNY, EUR, MXN, USD = Value
     }
+    import Currency._ // Allow access to all Currency enums
 
     case class Money(amount: BigDecimal, currency: Currency)
 ```
@@ -84,11 +85,12 @@ sense for both readability and parsing.
 ### Step 2: Define a RuleParser
 
 Once you have defined a new rule, now you need to be able parse a String into that rule. Given the rule above (and its
-default `toString` method, let's take a look at the string to be parsed:
+`toString` method, let's take a look at the string to be parsed:
 
 ```
     scala> val isNorthAmericanCurrency = CurrencyIn(CAD, MXN, USD)
     isNorthAmericanCurrency: CurrencyIn = CurrencyIn(CAD, MXN, USD)
+
     scala> isNorthAmericanCurrency.toString
     res1: String = CurrencyIn(CAD, MXN, USD)
 ```
@@ -109,6 +111,7 @@ which is as simple as implementing the [`unapply` method](../../blob/master/src/
 ```
 
 A few notes about the sample parser above:
+
 1. Again, `unapply` is used to expose the Scala Extractor pattern; in this case, the result is the Rule that is
 extracted from the String (or a None if the Rule can't be parsed from the String). The AbstractRuleParser also adds in
 a convenience method ([`fromString`](../../blob/master/src/main/scala/com/gilt/thehand/RuleParser.scala#L25)) if you don't
@@ -120,7 +123,7 @@ to the Currency enum.
 
 ### Step 3: Instantiate a custom parser
 
-The example parser above works great for the CurrencyIn Rule - but know nothing about other types of rules. You will
+The example parser above works great for the CurrencyIn Rule - but knows nothing about other types of rules. You will
 need to build your other custom Rules and RuleParsers, then combine them together using the [`RuleParser` case class](../../blob/master/src/main/scala/com/gilt/thehand/RuleParser.scala#L35):
 
 ```
@@ -180,12 +183,16 @@ the Currency enum; it also won't throw an exception for Contexts is doesn't know
 ```
     scala> myRule.matches(Context(USD)) // false because of the Rule logic
     res1: Boolean = false
+
     scala> myRule.matches(Context(CAD)) // Matches the Currency
     res2: Boolean = true
+
     scala> myRule.matches(Context("CAD")) // Matches the String
     res3: Boolean = true
+
     scala> myRule.matches(Context(Money(10.00, CAD))) // Matches the Money
     res4: Boolean = true
+
     scala> myRule.matches(Context(10.00)) // Doesn't know about Double
     res5: Boolean = false
 ```
@@ -309,10 +316,11 @@ A very rough example:
 
 Since Rules are serializable, the bank can be loaded from storage with "constant" storage complexity even
 as the complexity of the rule increases (e.g. the rule for creditUnionCA is stored no differently than the rule for
-largeInternational - they're both just strings - even though the former is a much more complex rule). Furthermore, when
-you need to add even more complexity - a new type of Rule, or a new Context - there is no need to touch the existing
-Bank rules (or even the Bank object): just add your new Rule and start using it. Contrasting the Bank example above
-against an alternate example that doesn't use Rules, it might look something like this:
+largeInternational - they're both just strings - even though the former is a much more complex rule).
+
+Furthermore, when you need to add even more complexity - a new type of Rule, or a new Context - there is no need to
+touch the existing Bank rules (or even the Bank object): just add your new Rule and start using it. Contrasting the Bank
+example above against an alternate example that doesn't use Rules, it might look something like this:
 
 ```
     case class Bank2(name: String, acceptedDepositAmountsByCurrency: Map[Currency, BigDecimal], defaultAcceptableAmount: Option[BigDecimal]) {
@@ -374,7 +382,7 @@ the testing suite in this library.
 ### Step 7: Helper classes (optional)
 
 In Step 3 above, the example creates "raw" rules by implementing the very base traits. In practice, rules often end up
-following one of a handful of formats accepts a particular type, accepts _n_ values of a particular type, etc. With that
+following one of a handful of formats: accepts a particular type, accepts _n_ values of a particular type, etc. With that
 in mind, this library also includes some helper traits that allow you to skip implementation of `unapply` and simply
 define how to parse into and out of your particular type:
 
