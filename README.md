@@ -478,13 +478,14 @@ To publish, set up your environment based on the "Contributors" section below, t
     2. `git add version.sbt`
     3. `git commit -m "Moving to version {x.x.x}"`
     4. `git tag {x.x.x}`
-    5. Push to master
+    5. `git push origin master`
+    6. `git push --tag`
 3. Run `sbt +publishSigned`
 4. Move the version to the next snapshot:
     1. Edit version.sbt to add back in '-SNAPSHOT' and bump the version
     2. `git add version.sbt`
     3. `git commit -m "Moving to version {x.x.x}-SNAPSHOT"`
-    5. Push to master
+    5. `git push origin master`
 
 Note: The versioning above may eliminated at some point if we add this in: https://github.com/sbt/sbt-release/issues/49
 
