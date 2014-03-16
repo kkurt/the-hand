@@ -44,8 +44,8 @@ In order to build a rule system around them, you would follow these steps:
 
 ### Step 1: Define a Rule
 
-To define a new Rule, implement the [Rule trait](../blob/master/src/main/scala/com/gilt/thehand/Rule.scala) - which
-is as simple as defining the [`unapply` method](../blob/master/src/main/scala/com/gilt/thehand/Rule.scala#L16) for the
+To define a new Rule, implement the [Rule trait](../../blob/master/src/main/scala/com/gilt/thehand/Rule.scala) - which
+is as simple as defining the [`unapply` method](../../blob/master/src/main/scala/com/gilt/thehand/Rule.scala#L16) for the
 Rule; you may optionally need to override `toString` if the default `toString` behavior does not match your parser.
 
 ```
@@ -65,8 +65,8 @@ A few notes about the sample rule above:
 
 1. `unapply` is used here to support the concept of [Scala Extractors](http://docs.scala-lang.org/tutorials/tour/extractor-objects.html);
 examples of extractor usage follow below. The Rule trait automatically adds in a convenience method if you don't want
-to use the extractor: [`def matches`](../blob/master/src/main/scala/com/gilt/thehand/Rule.scala#L23).
-2. The input to `unapply` is the [Context](../blob/master/src/main/scala/com/gilt/thehand/Context.scala) under which
+to use the extractor: [`def matches`](../../blob/master/src/main/scala/com/gilt/thehand/Rule.scala#L23).
+2. The input to `unapply` is the [Context](../../blob/master/src/main/scala/com/gilt/thehand/Context.scala) under which
 the rule operates. It accepts any type of AbstractContext, but in practice it's easiest to pattern-match using the
 type-parameterized Context class to match on the inner type of that Context. _This allows the Rule above to match not
 only on Currency, but also Money and String._ The ability for a Rule to match multiple types is one of the main features
@@ -93,8 +93,8 @@ default `toString` method, let's take a look at the string to be parsed:
     res1: String = CurrencyIn(CAD, MXN, USD)
 ```
 
-To parse this string, implement the [`AbstractRuleParser` trait](../blob/master/src/main/scala/com/gilt/thehand/RuleParser.scala#L11),
-which is as simple as implementing the [`unapply` method](../blob/master/src/main/scala/com/gilt/thehand/RuleParser.scala#L17):
+To parse this string, implement the [`AbstractRuleParser` trait](../../blob/master/src/main/scala/com/gilt/thehand/RuleParser.scala#L11),
+which is as simple as implementing the [`unapply` method](../../blob/master/src/main/scala/com/gilt/thehand/RuleParser.scala#L17):
 
 ```
     object CurrencyInParser extends AbstractRuleParser {
@@ -111,7 +111,7 @@ which is as simple as implementing the [`unapply` method](../blob/master/src/mai
 A few notes about the sample parser above:
 1. Again, `unapply` is used to expose the Scala Extractor pattern; in this case, the result is the Rule that is
 extracted from the String (or a None if the Rule can't be parsed from the String). The AbstractRuleParser also adds in
-a convenience method ([`fromString`](../blob/master/src/main/scala/com/gilt/thehand/RuleParser.scala#L25)) if you don't
+a convenience method ([`fromString`](../../blob/master/src/main/scala/com/gilt/thehand/RuleParser.scala#L25)) if you don't
 want to use the extractor. The input to `unapply` is the string to be parsed.
 2. This is an `object` because it is a static method and doesn't depend on any internal variables.
 3. The parsing basically boils down to "pull out the comma-delimited list between 'CurrencyIn(' and ')' and map that
@@ -121,7 +121,7 @@ to the Currency enum.
 ### Step 3: Instantiate a custom parser
 
 The example parser above works great for the CurrencyIn Rule - but know nothing about other types of rules. You will
-need to build your other custom Rules and RuleParsers, then combine them together using the [`RuleParser` case class](../blob/master/src/main/scala/com/gilt/thehand/RuleParser.scala#L35):
+need to build your other custom Rules and RuleParsers, then combine them together using the [`RuleParser` case class](../../blob/master/src/main/scala/com/gilt/thehand/RuleParser.scala#L35):
 
 ```
     val myParser = RuleParser(CurrencyInParser)
@@ -343,7 +343,7 @@ else needs to change.
 ### Step 6: Testing
 
 This library includes a trait that you should use to run a standard suite of tests against the Rules you develop:
-[RuleSpec](../blob/master/src/test/scala/com/gilt/thehand/RuleSpec.scala). Extend this trait with your own test classes
+[RuleSpec](../../blob/master/src/test/scala/com/gilt/thehand/RuleSpec.scala). Extend this trait with your own test classes
 by defining a Map of Rules to a tuple of Sets of Contexts that either should match (first member of the tuple) or should
 not match (second member of the tuple) the rule. The standard testing will make sure those examples are tested, in
 addition to ensuring that your parser works correctly. Here is an example:
@@ -378,15 +378,15 @@ following one of a handful of formats accepts a particular type, accepts _n_ val
 in mind, this library also includes some helper traits that allow you to skip implementation of `unapply` and simply
 define how to parse into and out of your particular type:
 
-1. [SingleValueRule](../blob/master/src/main/scala/com/gilt/thehand/rules/SingleValueRule.scala)
-2. [SeqRule](../blob/master/src/main/scala/com/gilt/thehand/rules/SeqRule.scala)
-3. [Eq, In, etc](../tree/master/src/main/scala/com/gilt/thehand/rules/comparison)
+1. [SingleValueRule](../../blob/master/src/main/scala/com/gilt/thehand/rules/SingleValueRule.scala)
+2. [SeqRule](../../blob/master/src/main/scala/com/gilt/thehand/rules/SeqRule.scala)
+3. [Eq, In, etc](../../tree/master/src/main/scala/com/gilt/thehand/rules/comparison)
 
 For examples of how to use these, refer to:
 
-1. [The Example](../blob/master/src/test/scala/com/gilt/thehand/ExampleSpec.scala)
-2. [The typed package](../tree/master/src/main/scala/com/gilt/thehand/rules/typed)
-3. [And, Or, etc](../tree/master/src/main/scala/com/gilt/thehand/rules/logical)
+1. [The Example](../../blob/master/src/test/scala/com/gilt/thehand/ExampleSpec.scala)
+2. [The typed package](../../tree/master/src/main/scala/com/gilt/thehand/rules/typed)
+3. [And, Or, etc](../../tree/master/src/main/scala/com/gilt/thehand/rules/logical)
 
 In addition, your context is not limited to Context - you're able to add additional contexts by inheriting from the
 AbstractContext trait.
