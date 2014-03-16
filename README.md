@@ -474,13 +474,13 @@ libraryDependencies ++= Seq(
 ## Contributors
 
 If you would like to contribute to this project and would like to be able to publish new versions, you will need the
-following (more in-depth instructions at [http://www.scala-sbt.org/release/docs/Community/Using-Sonatype.html]):
+following (more in-depth instructions at http://www.scala-sbt.org/release/docs/Community/Using-Sonatype.html ):
 
 1. Generate a GPG key pair
-    1. Download GPG tools from [http://gpgtools.org/]
+    1. Download GPG tools from http://gpgtools.org/
     2. Run `gpg --gen-key`
 2. Create a Sonatype JIRA account
-    1. [https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-2.Signup]
+    1. https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-2.Signup
     2. Contact us to associate your account with this repository
 3. Add your Sonatype JIRA credentials to ~/.sbt/sonatype.sbt
 
