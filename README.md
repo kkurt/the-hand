@@ -462,13 +462,31 @@ Those don't seem like a big deal, so until there is a more compelling reason to 
 ## Publishing
 
 This project is published to Maven Central, using semver versioning. It is written in Scala 2.10.3 but is also
-cross-compiled to 2.9.1, 2.9.2, 2.10.2. If you're using SBT, you can include this library as a dependency like this:
+cross-compiled to 2.9.1, 2.9.2. If you're using SBT, you can include this library as a dependency like this:
 
 ```
 libraryDependencies ++= Seq(
   "com.gilt" %% "thehand" % "0.0.1"
 )
 ```
+
+To publish, set up your environment based on the "Contributors" section below, then:
+
+1. Run `sbt +test` to ensure that all cross-compiled versions pass the tests.
+2. Assuming all tests pass, and replacing {x.x.x} below with the current version:
+    1. Edit version.sbt to remove '-SNAPSHOT'
+    2. `git add version.sbt`
+    3. `git commit -m "Moving to version {x.x.x}"`
+    4. `git tag {x.x.x}`
+    5. Push to master
+3. Run `sbt +publishSigned`
+4. Move the version to the next snapshot:
+    1. Edit version.sbt to add back in '-SNAPSHOT' and bump the version
+    2. `git add version.sbt`
+    3. `git commit -m "Moving to version {x.x.x}-SNAPSHOT"`
+    5. Push to master
+
+Note: The versioning above may eliminated at some point if we add this in: https://github.com/sbt/sbt-release/issues/49
 
 
 ## Contributors
@@ -482,12 +500,9 @@ following (more in-depth instructions at http://www.scala-sbt.org/release/docs/C
 2. Create a Sonatype JIRA account
     1. https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-2.Signup
     2. Contact us to associate your account with this repository
-3. Add your Sonatype JIRA credentials to ~/.sbt/sonatype.sbt
+3. Add your Sonatype JIRA credentials to ~/.sbt/0.13/sonatype.sbt
 
         credentials += Credentials("Sonatype Nexus Repository Manager",
                                    "oss.sonatype.org",
                                    "your-sonatype-username",
                                    "your-sonatype-password")
-
-4. Run `sbt +test` to ensure that all cross-compiled versions pass the tests.
-5. Run `sbt publish-signed`
