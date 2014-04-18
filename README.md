@@ -378,6 +378,12 @@ addition to ensuring that your parser works correctly. Here is an example:
 Augment this standard testing to include additional tests that you care about. Examples of this can be seen throughout
 the testing suite in this library.
 
+Note that when using RuleSpec in your tests, you will need to include an additional line in your build file:
+
+```
+    "com.gilt" %% "the-hand" % "0.0.2" % "test->test" classifier "tests"
+```
+
 
 ### Step 7: Helper classes (optional)
 

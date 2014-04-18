@@ -10,7 +10,7 @@ import com.gilt.thehand.exceptions.CannotDeserializeException
  * contexts that should match the rule, the second a list of contexts that should not match the rule. See @LongInSpec
  * for an example.
  */
-trait RuleSpec extends FlatSpec with ShouldMatchers {
+class RuleSpec extends FlatSpec with ShouldMatchers {
   lazy val parser: AbstractRuleParser = DefaultParser
 
   /**

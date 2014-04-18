@@ -17,6 +17,8 @@ resolvers ++= Seq(
 
 publishMavenStyle := true
 
+ivyConfigurations ~= overrideConfigs(config("test") describedAs("Helper classes for testing"))
+
 publishTo <<= version { (v: String) =>
   val nexus = "https://oss.sonatype.org/"
   if (v.trim.endsWith("SNAPSHOT"))
