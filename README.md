@@ -472,7 +472,7 @@ cross-compiled to 2.9.1, 2.9.2. If you're using SBT, you can include this librar
 
 ```
 libraryDependencies ++= Seq(
-  "com.gilt" %% "thehand" % "0.0.1"
+  "com.gilt" %% "thehand" % "0.0.2"
 )
 ```
 
