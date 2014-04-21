@@ -1,8 +1,8 @@
 package com.gilt.thehand.rules.typed
 
-import com.gilt.thehand.{AbstractContext, Context, Rule, RuleSpec}
+import com.gilt.thehand.{AbstractContext, Context, Rule, AbstractRuleSpec}
 
-class StringGtSpec extends RuleSpec {
+class StringGtSpec extends AbstractRuleSpec {
   val testCases: Map[Rule, (Set[AbstractContext], Set[AbstractContext])] = Map(
     StringGt("0") -> (
       Set(Context(1), Context(0.001), Context(0.0), Context(BigDecimal("1.00")), Context(true)),

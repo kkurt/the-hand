@@ -350,14 +350,16 @@ else needs to change.
 
 ### Step 6: Testing
 
-This library includes a trait that you should use to run a standard suite of tests against the Rules you develop:
-[RuleSpec](../../blob/master/src/test/scala/com/gilt/thehand/RuleSpec.scala). Extend this trait with your own test classes
-by defining a Map of Rules to a tuple of Sets of Contexts that either should match (first member of the tuple) or should
-not match (second member of the tuple) the rule. The standard testing will make sure those examples are tested, in
-addition to ensuring that your parser works correctly. Here is an example:
+This library includes a trait that you should implement in your preferred testing framework to run a standard suite of
+tests against the Rules you develop: [RuleTester](../../blob/master/src/main/scala/com/gilt/thehand/test/RuleTester.scala).
+An example implementation of this trait (defined for the `FlatSpec` format) is
+[AbstractRuleSpec](../../blob/master/src/test/scala/com/gilt/thehand/AbstractRuleSpec.scala). `AbstractRuleSpec` is in
+turn used by the other tests in the project by defining a Map of Rules to a tuple of Sets of Contexts that either should
+match (first member of the tuple) or should not match (second member of the tuple) the rule. The standard testing will
+make sure those examples are tested, in addition to ensuring that your parser works correctly. Here is an example:
 
 ```
-    class CurrencyInSpec extends RuleSpec {
+    class CurrencyInSpec extends AbstractRuleSpec {
       override val parser = RuleParser(CurrencyInParser) // You must override the default parser to include your customizations
 
       val testCases = Map(
@@ -377,12 +379,6 @@ addition to ensuring that your parser works correctly. Here is an example:
 
 Augment this standard testing to include additional tests that you care about. Examples of this can be seen throughout
 the testing suite in this library.
-
-Note that when using RuleSpec in your tests, you will need to include an additional line in your build file:
-
-```
-    "com.gilt" %% "the-hand" % "0.0.2" % "test->test" classifier "tests"
-```
 
 
 ### Step 7: Helper classes (optional)

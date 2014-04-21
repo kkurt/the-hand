@@ -1,8 +1,8 @@
 package com.gilt.thehand.rules.logical
 
-import com.gilt.thehand.{Context, RuleSpec}
+import com.gilt.thehand.{Context, AbstractRuleSpec}
 
-class TrueSpec extends RuleSpec {
+class TrueSpec extends AbstractRuleSpec {
   def testCases = Map(
     True -> (
         Set(Context(1), Context("2"), Context(false)),

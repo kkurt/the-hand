@@ -7,7 +7,7 @@ import com.gilt.thehand.rules.typed.{StringIn, LongIn}
 /**
  * A place to drop general tests that cross class lines.
  */
-class RuleParserSpec extends RuleSpec {
+class RuleParserSpec extends AbstractRuleSpec {
 
   val testCases = Map(
     And(Or(StringIn("1", "2"), LongIn(10, 31)), And(StringIn("2", "3"), Not(LongIn(3, 4)))) -> (

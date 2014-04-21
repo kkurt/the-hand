@@ -1,8 +1,8 @@
 package com.gilt.thehand.rules.typed
 
-import com.gilt.thehand.{Context, RuleSpec}
+import com.gilt.thehand.{Context, AbstractRuleSpec}
 
-class LongInSpec extends RuleSpec {
+class LongInSpec extends AbstractRuleSpec {
   val testCases = Map(
     LongIn(0, 3, 102, 54) -> (
         Set(Context(0), Context(BigDecimal("102.0")), Context(54.0), Context(false), Context('3'), Context("54")),

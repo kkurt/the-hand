@@ -1,12 +1,12 @@
 package com.gilt.thehand.rules.logical
 
-import com.gilt.thehand.{Context, RuleSpec}
+import com.gilt.thehand.{Context, AbstractRuleSpec}
 
 /**
  * In these tests, any context could have been used; using Boolean here to prove that true/false doesn't matter in the
  * context when evaluating True/False rules.
  */
-class AndSpec extends RuleSpec {
+class AndSpec extends AbstractRuleSpec {
   val testCases = Map(
     And(True) -> (
       Set(Context(true), Context(false)),

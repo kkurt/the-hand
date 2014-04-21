@@ -5,12 +5,13 @@ import com.gilt.thehand.rules.{SeqRuleParser, SingleValueRule}
 import com.gilt.thehand.rules.conversions.ConvertsTo
 import com.gilt.thehand.rules.comparison.{In, LessThanEqual}
 import com.gilt.thehand.exceptions.CannotDeserializeException
+import org.scalatest.matchers.ShouldMatchers
 
 /**
  * This is an example of how you might implement custom rules, taking you through the setps sequentially.
  * It also show how to use the rules.
  */
-class ExampleSpec extends RuleSpec {
+class ExampleSpec extends AbstractRuleSpec with ShouldMatchers {
 
   /**
    * 1. Define some custom objects.
@@ -137,7 +138,7 @@ class ExampleSpec extends RuleSpec {
    *    com.gilt.thehand.DefaultParser. In normal usage, this won't be an override and can be named anything; within
    *    RuleSpec, you will need to override the `parser` val.
    */
-  override lazy val parser = RuleParser(WeatherTypeInParser, TemperatureLteParser)
+  override val parser = RuleParser(WeatherTypeInParser, TemperatureLteParser)
 
   /**
    * 5. Set up standard testing by using RuleSpec.
