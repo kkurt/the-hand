@@ -2,12 +2,12 @@ name := "the-hand"
 
 organization := "com.gilt"
 
-crossScalaVersions := Seq("2.10.3", "2.9.2", "2.9.1")
+crossScalaVersions := Seq("2.10.4", "2.11.4")
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.11.4"
 
 libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "1.9.2" % "test"
+  "org.scalatest" %% "scalatest" % "2.2.3" % "test"
 )
 
 resolvers ++= Seq(
@@ -41,5 +41,10 @@ pomExtra := (
       <id>rlmartin</id>
       <name>Ryan Martin</name>
       <url>https://github.com/rlmartin</url>
+    </developer>
+    <developer>
+      <id>myyk</id>
+      <name>Myyk Seok</name>
+      <url>https://github.com/myyk</url>
     </developer>
   </developers>)
