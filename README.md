@@ -58,7 +58,7 @@ Rule; you may optionally need to override `toString` if the default `toString` b
         case _ => None
       }
 
-      override def toString = "CurrencyIn(%s)".format(values.map(_.toString).mkString(", "))
+      override def toString = s"CurrencyIn(${values.map(_.toString).mkString(", ")})"
     }
 ```
 
@@ -449,26 +449,14 @@ able to simply copy-paste the serialized string into the Scala REPL and have it 
 quite offset the drawbacks.
 
 
-### 3. Why cross-compile into Scala 2.9.x?
-
-Not entirely sure, but it wasn't too hard to support Scala 2.9.x - so I did. Here's what we lose, that we might have
-used in the code:
-
-1. String interpolation (i.e. `s"This is my value: $value"` instead of `"This is my value %s".format(value)`).
-2. Removing deprecated `manifest.erasure` and replacing it with `manifest.runtimeClass`.
-3. Removing deprecated `org.scalatest.matchers.ShouldMatchers` and replacing it with `org.scalatest.Matchers`.
-
-Those don't seem like a big deal, so until there is a more compelling reason to drop Scala 2.9 support, we'll keep it.
-
-
 ## Publishing
 
-This project is published to Maven Central, using semver versioning. It is written in Scala 2.10.3 but is also
-cross-compiled to 2.9.1, 2.9.2. If you're using SBT, you can include this library as a dependency like this:
+This project is published to Maven Central, using semver versioning. It is written in Scala 2.10.4 but is also
+cross-compiled to 2.11.4. If you're using SBT, you can include this library as a dependency like this:
 
 ```
 libraryDependencies ++= Seq(
-  "com.gilt" %% "thehand" % "0.0.3"
+  "com.gilt" %% "thehand" % "0.0.4"
 )
 ```
 

@@ -5,13 +5,13 @@ import com.gilt.thehand.rules.{SeqRuleParser, SingleValueRule}
 import com.gilt.thehand.rules.conversions.ConvertsTo
 import com.gilt.thehand.rules.comparison.{In, LessThanEqual}
 import com.gilt.thehand.exceptions.CannotDeserializeException
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.Matchers
 
 /**
  * This is an example of how you might implement custom rules, taking you through the setps sequentially.
  * It also show how to use the rules.
  */
-class ExampleSpec extends AbstractRuleSpec with ShouldMatchers {
+class ExampleSpec extends AbstractRuleSpec with Matchers {
 
   /**
    * 1. Define some custom objects.
@@ -39,7 +39,7 @@ class ExampleSpec extends AbstractRuleSpec with ShouldMatchers {
       case Celsius => degrees compare that.inC
     }
 
-    override def toString = "Temperature(%s, %s)".format(degrees, degreeType)
+    override def toString = s"Temperature($degrees, $degreeType)"
   }
 
   // A class to represent the current weather.
@@ -58,7 +58,7 @@ class ExampleSpec extends AbstractRuleSpec with ShouldMatchers {
       case `wearRainJacket`(context) => Some(JacketType.Rain)
       case `wearLightJacket`(context) => Some(Light)
       case `wearNoJacket`(context) => None
-      case _ => throw new RuntimeException("I don't have a rule for this weather! %s".format(context.instance))
+      case _ => throw new RuntimeException(s"I don't have a rule for this weather! ${context.instance}")
     }
   }
 
@@ -84,7 +84,7 @@ class ExampleSpec extends AbstractRuleSpec with ShouldMatchers {
      * 2b. Your rule should be specific how it is represented as a string. This will be used later when parsing the
      *     string back into the Rule.
      */
-    override def toString = "TemperatureLte(%s)".format(value)
+    override def toString = s"TemperatureLte($value)"
   }
 
   /**
@@ -180,20 +180,20 @@ class ExampleSpec extends AbstractRuleSpec with ShouldMatchers {
   "A Person can use its own rules to decide which jacket based on the weather" should "work when loaded in code" in {
     // Alice and Bob use different rules to determine which jacket to wear. They may choose different jackets in
     // different weather.
-    alice.whichJacket(coldButSunny) should be (Some(Light))
-    bob.whichJacket(coldButSunny) should be (Some(Winter))
+    alice.whichJacket(coldButSunny) shouldBe Some(Light)
+    bob.whichJacket(coldButSunny) shouldBe Some(Winter)
 
-    alice.whichJacket(snowingAbove30) should be (Some(Winter))
-    bob.whichJacket(snowingAbove30) should be (Some(Winter))
+    alice.whichJacket(snowingAbove30) shouldBe Some(Winter)
+    bob.whichJacket(snowingAbove30) shouldBe Some(Winter)
 
-    alice.whichJacket(windyAnd70) should be (Some(Light))
-    bob.whichJacket(windyAnd70) should be (None)
+    alice.whichJacket(windyAnd70) shouldBe Some(Light)
+    bob.whichJacket(windyAnd70) shouldBe None
 
-    alice.whichJacket(cloudyAnd70) should be (Some(Light))
-    bob.whichJacket(cloudyAnd70) should be (Some(Light))
+    alice.whichJacket(cloudyAnd70) shouldBe Some(Light)
+    bob.whichJacket(cloudyAnd70) shouldBe Some(Light)
 
-    alice.whichJacket(rainingButWarm) should be (Some(JacketType.Rain))
-    bob.whichJacket(rainingButWarm) should be (None)
+    alice.whichJacket(rainingButWarm) shouldBe Some(JacketType.Rain)
+    bob.whichJacket(rainingButWarm) shouldBe None
   }
 
   it should "work when loaded from a string" in {
@@ -211,20 +211,20 @@ class ExampleSpec extends AbstractRuleSpec with ShouldMatchers {
       wearNoJacket = parser.fromString(bob.wearNoJacket.toString)
     )
 
-    charlie.whichJacket(coldButSunny) should be (Some(Light))
-    david.whichJacket(coldButSunny) should be (Some(Winter))
+    charlie.whichJacket(coldButSunny) shouldBe Some(Light)
+    david.whichJacket(coldButSunny) shouldBe Some(Winter)
 
-    charlie.whichJacket(snowingAbove30) should be (Some(Winter))
-    david.whichJacket(snowingAbove30) should be (Some(Winter))
+    charlie.whichJacket(snowingAbove30) shouldBe Some(Winter)
+    david.whichJacket(snowingAbove30) shouldBe Some(Winter)
 
-    charlie.whichJacket(windyAnd70) should be (Some(Light))
-    david.whichJacket(windyAnd70) should be (None)
+    charlie.whichJacket(windyAnd70) shouldBe Some(Light)
+    david.whichJacket(windyAnd70) shouldBe None
 
-    charlie.whichJacket(cloudyAnd70) should be (Some(Light))
-    david.whichJacket(cloudyAnd70) should be (Some(Light))
+    charlie.whichJacket(cloudyAnd70) shouldBe Some(Light)
+    david.whichJacket(cloudyAnd70) shouldBe Some(Light)
 
-    charlie.whichJacket(rainingButWarm) should be (Some(JacketType.Rain))
-    david.whichJacket(rainingButWarm) should be (None)
+    charlie.whichJacket(rainingButWarm) shouldBe Some(JacketType.Rain)
+    david.whichJacket(rainingButWarm) shouldBe None
   }
 
   /**
@@ -242,32 +242,32 @@ class ExampleSpec extends AbstractRuleSpec with ShouldMatchers {
   }
 
   it should "work with the matches method" in {
-    alice.wearWinterJacket.matches(coldButSunny) should be (false)
-    bob.wearWinterJacket.matches(coldButSunny) should be (true)
+    alice.wearWinterJacket.matches(coldButSunny) shouldBe false
+    bob.wearWinterJacket.matches(coldButSunny) shouldBe true
   }
 
   "Parsing Rules" should "work round-trip with the extractor" in {
     val rule = alice.wearWinterJacket.toString match {
       case parser(rule) => rule
-      case _ => throw new CannotDeserializeException("Failed deserializing [%s]".format(alice.wearWinterJacket.toString))
+      case _ => throw new CannotDeserializeException(s"Failed deserializing [${alice.wearWinterJacket.toString}}]")
     }
-    rule should be (alice.wearWinterJacket)
+    rule shouldBe alice.wearWinterJacket
   }
 
   it should "work round-trip with fromString" in {
-    parser.fromString(alice.wearWinterJacket.toString) should be (alice.wearWinterJacket)
+    parser.fromString(alice.wearWinterJacket.toString) shouldBe alice.wearWinterJacket
   }
 
   it should "work for a raw string with extractor" in {
     val rule = "And(TemperatureLte(Temperature(35, Celsius)), Not(WeatherTypeIn(Sun, Clouds)))" match {
       case parser(rule) => rule
-      case _ => throw new CannotDeserializeException("Failed deserializing [%s]".format(alice.wearWinterJacket.toString))
+      case _ => throw new CannotDeserializeException(s"Failed deserializing [${alice.wearWinterJacket.toString}}]")
     }
-    rule should be (And(TemperatureLte(Temperature(35, Celsius)), Not(WeatherTypeIn(Sun, Clouds))))
+    rule shouldBe And(TemperatureLte(Temperature(35, Celsius)), Not(WeatherTypeIn(Sun, Clouds)))
   }
 
   it should "work for a raw string with fromString" in {
-    parser.fromString("And(TemperatureLte(Temperature(35, Celsius)), Not(WeatherTypeIn(Sun, Clouds)))") should be (And(TemperatureLte(Temperature(35, Celsius)), Not(WeatherTypeIn(Sun, Clouds))))
+    parser.fromString("And(TemperatureLte(Temperature(35, Celsius)), Not(WeatherTypeIn(Sun, Clouds)))") shouldBe And(TemperatureLte(Temperature(35, Celsius)), Not(WeatherTypeIn(Sun, Clouds)))
   }
 
 }

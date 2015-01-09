@@ -35,10 +35,10 @@ abstract class SeqRuleParser[T <: SeqRule : Manifest] extends AbstractRuleParser
    * A constructor for the SeqRule that takes a list of typed values. Override this if your class constructor does not
    * simply take a Seq[InnerType].
    */
-  def ruleConstructor(values: Seq[T#InnerType]): T = manifest.erasure.getConstructor(classOf[Seq[T#InnerType]]).newInstance(values).asInstanceOf[T]
+  def ruleConstructor(values: Seq[T#InnerType]): T = manifest.runtimeClass.getConstructor(classOf[Seq[T#InnerType]]).newInstance(values).asInstanceOf[T]
 
   def unapply(deserializeFrom: String): Option[T] = {
-    val matchRegEx = "^%s\\((.+)\\)$".format(manifest.erasure.getSimpleName).r
+    val matchRegEx = s"^${manifest.runtimeClass.getSimpleName}\\((.+)\\)$$".r
     deserializeFrom match {
       case matchRegEx(valuesStr) => Some(ruleConstructor(Util.nestedSplit(valuesStr, ',').map(s => toValue(s.trim) )))
       case _ => None

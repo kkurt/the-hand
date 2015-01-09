@@ -53,12 +53,12 @@ trait RuleTester {
           val serializedRule = rule.toString
           serializedRule match {
             case parser(deserializedRule) => assert(deserializedRule == rule)
-            case _ => throw new CannotDeserializeException("Could not deserialize [%s]".format(serializedRule))
+            case _ => throw new CannotDeserializeException(s"Could not deserialize [$serializedRule]")
           }
         })) ++
 
         matchingContexts.map { context =>
-          "match %s".format(context) -> (() => {
+          s"match $context" -> (() => {
             // Match using 'matches'
             assert(rule.matches(context))
             // Match using the extractor
@@ -70,7 +70,7 @@ trait RuleTester {
         } ++
 
         nonMatchingContexts.map { context =>
-          "not match %s".format(context) -> (() => {
+          s"not match $context" -> (() => {
             // Attempt match using 'matches'
             assert(!rule.matches(context))
             // Attempt match using the extractor

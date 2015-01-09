@@ -22,7 +22,7 @@ trait AbstractRuleParser {
    * @return The Rule that had been serialized; this method will throw a CannotDeserializeException if it is unable
    *         to deserialize the string into a rule based on the current parser.
    */
-  def fromString(deserializeFrom: String): Rule = unapply(deserializeFrom).getOrElse(throw CannotDeserializeException("Unable to deserialize [%s]".format(deserializeFrom)))
+  def fromString(deserializeFrom: String): Rule = unapply(deserializeFrom).getOrElse(throw CannotDeserializeException(s"Unable to deserialize [$deserializeFrom]"))
 }
 
 /**
