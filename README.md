@@ -476,7 +476,7 @@ To publish, set up your environment based on the "Contributors" section below, t
     2. `git add version.sbt`
     3. `git commit -m "Moving to version {x.x.x}-SNAPSHOT"`
     5. `git push origin master`
-5. Promote the release by following these steps: https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-8a.ReleaseIt
+5. Promote the release by following these steps: http://central.sonatype.org/pages/releasing-the-deployment.html
 
 Note: The versioning above may eliminated at some point if we add this in: https://github.com/sbt/sbt-release/issues/49
 
