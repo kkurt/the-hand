@@ -2,9 +2,9 @@ name := "the-hand"
 
 organization := "com.gilt"
 
-crossScalaVersions := Seq("2.10.4", "2.11.4")
+crossScalaVersions := Seq("2.10.5", "2.11.8")
 
-scalaVersion := "2.11.4"
+scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "2.2.3" % "test"
