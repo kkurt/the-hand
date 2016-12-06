@@ -6,7 +6,7 @@ A serializable rules engine.
 When you use this library, you - the developer - are king (or queen). The king defines the rules; the Hand of the King
 writes down the king's rules and enforces them.
 
-## Goals Of This Library
+## Goals of this library
 
 This library sets out to achieve two main goals:
 
