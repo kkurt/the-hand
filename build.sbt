@@ -1,3 +1,5 @@
+import scoverage.ScoverageKeys
+
 name := "the-hand"
 
 organization := "com.gilt"
@@ -5,6 +7,10 @@ organization := "com.gilt"
 crossScalaVersions := Seq("2.10.6", "2.11.11", "2.12.2")
 
 scalaVersion := "2.11.11"
+
+ScoverageKeys.coverageFailOnMinimum := true
+
+ScoverageKeys.coverageMinimum := 92.1
 
 libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.3" % "test"
