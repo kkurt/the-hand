@@ -451,8 +451,8 @@ quite offset the drawbacks.
 
 ## Publishing
 
-This project is published to Maven Central, using semver versioning. It is written in Scala 2.10.4 but is also
-cross-compiled to 2.11.4. If you're using SBT, you can include this library as a dependency like this:
+This project is published to Maven Central, using semver versioning. It is written in Scala 2.11.x but is also
+cross-compiled to 2.12.x. If you're using SBT, you can include this library as a dependency like this:
 
 ```
 libraryDependencies ++= Seq(
