@@ -4,7 +4,7 @@ name := "the-hand"
 
 organization := "com.gilt"
 
-crossScalaVersions := Seq("2.11.11", "2.12.3")
+crossScalaVersions := Seq("2.11.11", "2.12.4")
 
 scalaVersion := "2.11.11"
 
