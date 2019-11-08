@@ -4,9 +4,9 @@ name := "the-hand"
 
 organization := "com.gilt"
 
-crossScalaVersions := Seq("2.11.11", "2.12.4")
+crossScalaVersions := Seq("2.11.11", "2.12.10")
 
-scalaVersion := "2.11.11"
+scalaVersion := "2.12.10"
 
 ScoverageKeys.coverageFailOnMinimum := true
 
